@@ -156,6 +156,82 @@ extension CarP {
     }
 }
 
+class TrunkCar: CarP, TrunkP {
+    var brand:String
+    let year: Int
+    let maxTrunkVolume: Double
+    var currentTrunkVolume: Double
+    var doorsState: DoorsState
+    var windowsState: WindowState
+    var engineState: EngineState
+    var trunkState: TrunkState
+    
+    init(brand: String, year: Int, maxTrunkVolume: Double, currentTrunkVolume: Double, doorsState: DoorsState, windowsState: WindowState, engineState: EngineState, trunkState: TrunkState){
+        self.brand = brand
+        self.year = year
+        self.maxTrunkVolume = maxTrunkVolume
+        self.currentTrunkVolume = currentTrunkVolume
+        self.doorsState = doorsState
+        self.windowsState = windowsState
+        self.engineState = engineState
+        self.trunkState = trunkState
+    }
+}
+
+extension TrunkCar: CustomStringConvertible {
+    var description: String {
+        return "Марка - \(brand). Год выпуска - \(year). Вместимость багажника - \(maxTrunkVolume). Заполненность багажника - \(currentTrunkVolume).Двери -  \(doorsState.rawValue). Окна - \(windowsState.rawValue). Двигатель - \(engineState.rawValue). Багажник - \(trunkState.rawValue)"
+    }
+}
+
+class CarWDE: CarP {
+    var brand:String
+    let year: Int
+    var doorsState: DoorsState
+    var windowsState: WindowState
+    var engineState: EngineState
+    
+    init(brand: String, year: Int, doorsState: DoorsState, windowsState: WindowState, engineState: EngineState) {
+        self.brand = brand
+        self.year = year
+        self.doorsState = doorsState
+        self.windowsState = windowsState
+        self.engineState = engineState
+    }
+}
+
+extension CarWDE: CustomStringConvertible {
+    var description: String {
+        return "Марка - \(brand). Год выпуска - \(year). Двери -  \(doorsState.rawValue). Окна - \(windowsState.rawValue). Двигатель - \(engineState.rawValue)."
+    }
+}
+
+var car1 = CarWDE(brand: "Volvo", year: 2020, doorsState: .isClose, windowsState: .isClose, engineState: .off)
+
+print(car1)
+
+print("\(car1.doorsState)")
+print("\(car1.windowsState)")
+print("\(car1.engineState)")
+print("\(car1.brand)")
+print("\(car1.year)")
+car1.doActionWithDoors(.open)
+car1.doActionWithWindows(.open)
+car1.doActionWithEngine(.turnOn)
+print("\(car1.doorsState)")
+print("\(car1.windowsState)")
+print("\(car1.engineState)")
+car1.brand = "Opel"
+print("\(car1.brand)")
+
+var car2 = TrunkCar(brand: "Volvo", year: 2021, maxTrunkVolume: 500, currentTrunkVolume: 0, doorsState: .isClose, windowsState: .isClose, engineState: .off, trunkState: .isClose)
+
+car2.doActionWithDoors(.open)
+print("\(car2.doorsState)")
+print("\(car2.currentTrunkVolume)")
+car2.doActionWithTrunk(.put(value: 100))
+print(car2)
+car2.doActionWithTrunk(.put(value:500))
 
 
 
